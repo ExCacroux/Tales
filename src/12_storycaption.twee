@@ -1,0 +1,18 @@
+:: StoryCaption
+<div class="ribbon">The Tale For You</div>
+<h4>
+    【<<print $race>>】族,【<<print $gender>>】性
+    <h3><p class="chara">$name</p></h3><p class="chara"> 
+    [HP] $hp_1
+    [MP] $mp_1
+    [攻击] $atk_1
+    [魔法] $mag_1
+    [速度] $spd_1
+    [防御] $def_1
+    [幸运] $luk_1 
+    [核心] $characteristics
+    [天赋] <<print $talents.join(", ")>>
+    
+    </p>
+</h4>
+

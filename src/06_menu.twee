@@ -1,0 +1,6 @@
+:: menu
+<h3>重命名</h3>
+<input type="text" id="nameInput" placeholder="输入名字（至少2字）" >
+<<link "确认">>
+<<run setup.setName()>>
+<</link>>

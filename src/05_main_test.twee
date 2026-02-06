@@ -1,0 +1,26 @@
+:: main_test
+
+<div class="tale_main">Main</div>
+<h3 class="test_main">以下文本皆为测试文本，以后会大改</h3>
+<h4>
+你是<<print $name>>，<<print $age>>岁，
+是一个<<print $call>>，<<if $age lte 0>>
+    
+    <<print "未出生的胚胎">>
+    
+    <<elseif $age lte 3>>
+        <<print 可爱的小家伙>>
+    <<elseif $age lte 7>>
+        <<print 小天使>>
+    <<elseif $age lte 15>>
+        <<if $gender is "男">>
+            帅气的<<print $call>>
+        <<elseif $gender is "女">>
+            可爱的<<print $call>>
+        <<else>>
+            厉害的<<print $call>>
+        <</if>><<else>>
+            不错的<<print $call>>
+<</if>>
+</h4>
+

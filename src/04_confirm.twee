@@ -1,0 +1,32 @@
+:: confirm
+<h1>你的设定是：</h1>
+<<set $hp to $hp_1; $mp to $mp_1; $atk to $atk_1; $def to $def_1; $spd to $spd_1; $luk to $luk_1; $mag to $mag_1>>
+<<if $characteristics is "wisdom">>
+    <<set $mp_1 += 100; $spd_1 += 5; $luk_1 += 5; $mag_1 += 50>>
+    <<elseif $characteristics is "power">>
+    <<set $hp_1 += 100; $atk_1 += 50; $def_1 += 20; $spd_1 -= 10; $mag_1 -= 5>>
+    <<elseif $characteristics is "survive">>
+    <<set $hp_1 += 100; $mp_1 += 100; $def_1 += 10; $spd_1 += 5; $mag_1 -= 50>>
+<</if>>
+
+<h2>性别：<<print $gender>></h2><h2>名称：<<print $name>></h2><h2>年龄：<<print $age>></h2><h2>称呼：<<print $call>></h2><h2>种族：<<print $race>>族</h2><h3>
+    HP: $hp → $hp_1
+    MP: $mp → $mp_1
+    攻击: $atk → $atk_1
+    魔法: $mag → $mag_1
+    速度: $spd → $spd_1
+    防御: $def → $def_1
+    幸运: $luk → $luk_1
+    核心特性：【<<print $characteristics>>】
+</h3>
+
+是这样吗？
+
+<<link 是的>>
+<<goto main_test>>
+<</link>>
+<<link "返回">>
+<<goto setting>>
+<</link>> <<link "上一页">>
+<<goto next_one>>
+<</link>>

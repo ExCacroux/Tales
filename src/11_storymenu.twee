@@ -1,0 +1,8 @@
+:: StoryMenu
+<<link "设置">>
+    <<script>>
+        Dialog.setup("设置");
+        Dialog.wikiPassage('menu');
+        Dialog.open();
+    <</script>>
+<</link>>

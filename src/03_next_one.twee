@@ -1,0 +1,41 @@
+:: next_one
+<h3>特性</h3>
+<<set $talents to []>><<set $points to 5>>
+剩余点数：<span id="point">$points</span>
+已选：<span id="talen">无</span>
+
+<<link "<span class='talent' data-desc='汝是带来终末之人\n 你的结局必是史诗及以上，但必死无疑！'> 终末 (5点)</span>">>
+    <<if $points >= 5 and not $talents.includes("终末")>>
+        <<set $points -= 5>>                 <!-- 扣点 -->
+        <<set $talents.push("终末")>>        <!-- 2. 加入数组 -->
+        <<replace "#talen">><<print $talents.join(", ")>><</replace>>
+        <<replace "#point">>$points<</replace>>
+    <</if>>
+<</link>> <<link "<span class='talent' data-desc='汝是终将永恒之人\n 你将无法到达结局！'> 永恒 (5点)</span>">>
+    <<if $points >= 5 and not $talents.includes("永恒")>>
+        <<set $points -= 5>>                 <!-- 扣点 -->
+        <<set $talents.push("永恒")>>        <!-- 2. 加入数组 -->
+        <<replace "#talen">><<print $talents.join(", ")>><</replace>>
+        <<replace "#point">>$points<</replace>>
+    <</if>>
+<</link>> 
+
+
+<<link 取消全部选择>>
+    <<set $talents to []>>
+    <<set $points to 5>>
+    <<replace "#talen">><<print $talents.join(", ")>><</replace>>
+    <<replace "#point">>$points<</replace>>
+<</link>>
+<h4>核心特性：</h4> <<radiobutton "$characteristics" "wisdom">>智慧 <<radiobutton "$characteristics" "power">>力量 <<radiobutton "$characteristics" "survive">>生存
+
+<h2>TODO: 上面是空壳，暂无运算逻辑。正在编写ing…… 
+Tips: 关键块之一；后面还有一个战斗模块，建成后基本上底层就初步完工。</h2>
+
+<<link 确定>>
+<<goto confirm>>
+<</link>>
+<<link "返回">>
+<<goto next>>
+<</link>>
+<<set $hp_1 to $hp; $mp_1 to $mp; $atk_1 to $atk; $def_1 to $def; $spd_1 to $spd; $luk_1 to $luk; $mag_1 to $mag>>

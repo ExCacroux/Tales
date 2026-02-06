@@ -1,0 +1,685 @@
+:: StoryTitle
+Tales
+
+:: StoryData
+{
+  "ifid": "5376C828-23EF-4A8B-AEFD-981EA13A112F",
+  "format": "SugarCube",
+  "format-version": "2.37.3",
+  "start": "setting",
+  "zoom": 1
+}
+:: setting
+<<set $race to "">><<set $gender to "">><<set $name to "">><<set $age to "">><<set $call to "">> <<set $hp to 100>><<set $mp to 100>><<set $atk to 10>><<set $def to 10>><<set $spd to 5>><<set $luk to 5>><<set $mag to 10>>
+<<set $talents to []>>
+<h1> 角色创建</h1>
+<h2>请设置性别：</h2><h3>当前性别:<span id="gender-display">未选择</span></h3>
+<<link "男性">>
+    <<set $gender to "男">>
+    <<replace "#gender-display">>男<</replace>>
+    <<replace "#call-display">>
+        <<link "男孩子">>
+            <<set $call to "男孩子">>
+            <<replace "#call-display">>男孩子<</replace>>
+        <</link>>
+        <<link "男人">>
+            <<set $call to "男人">>
+            <<replace "#call-display">>男人<</replace>>
+        <</link>>
+    <</replace>>
+<</link>> <<link "女性">>
+    <<set $gender to "女">>
+    <<replace "#gender-display">>女<</replace>>
+    <<replace "#call-display">>
+        <<link "女孩子">>
+            <<set $call to "女孩子">>
+            <<replace "#call-display">>女孩子<</replace>>
+        <</link>>
+        <<link "女人">>
+            <<set $call to "女人">>
+            <<replace "#call-display">>女人<</replace>>
+        <</link>>
+    <</replace>>
+<</link>> <<link "无性">>
+    <<set $gender to "无">>
+    <<replace "#gender-display">>无<</replace>>
+    <<replace "#call-display">>
+        <input type="text" id="callInput" placeholder="输入称谓">
+    <</replace>>
+<</link>>
+
+<h2>输入名称：</h2>
+<input type="text" id="nameInput" placeholder="输入名字（至少2字）" >
+
+<h2>你的称呼：</h2><div id="call-display"><<print "请先选择性别">></div>
+
+<h2>输入年龄：</h2><input type="number" id="ageInput" placeholder="年龄" min="1" max="100">
+<<link "确认">>
+<<run setup.setName()>>
+<<if $gender is "无">>
+<<run setup.setCall()>>
+<</if>>
+    <<if setup.setAge()>>
+        <<if $gender is "">>
+            <<replace "#error">>请先选择性别<</replace>>
+            <<goto "setting">>
+        <<elseif $name is "">>
+            <<replace "#error">>请先选择名字<</replace>>
+            <<goto "setting">>
+        <<else>>
+            <<goto "next">>
+        <</if>>
+    <</if>>
+<</link>>
+
+<span id="error" style="color: red;"></span>
+<<set $characteristics to "">><<set $characteristics_end to "">><<set $characteristics_eternal to "">>
+<<set $hp_1 to ""; $mp_1 to ""; $atk_1 to ""; $def_1 to ""; $spd_1 to ""; $luk_1 to ""; $mag_1 to "">>
+:: next
+<h3>当前种族：<span id="rclass">无</span></h3>
+<h4>
+<span id="attri">属性</span>
+</h4>
+<<if $age lte 12>>
+    <<link 灵族>>
+        <<set $hp to 100; $mp to 100; $atk to 10; $def to 10; $spd to 5; $luk to 5; $mag to 10>>
+        <<set $race to "灵";$mag to 20;$mp to 200;$spd to 10;$luk to 10>>
+    <<replace "#rclass">>灵族<</replace>>
+    <<replace "#attri">>
+    [HP] $hp
+    [MP] $mp
+    [攻击] $atk
+    [魔法] $mag
+    [速度] $spd
+    [防御] $def
+    [幸运] $luk
+    <</replace>>
+    <</link>>   
+<</if>><<if $age gte 12>>
+    <<link 人族>>
+        <<set $hp to 100; $mp to 100; $atk to 10; $def to 10; $spd to 5; $luk to 5; $mag to 10>>
+        <<set $race to "人";$atk to 20;$hp to 150;$def to 15;$luk to 10>>
+    <<replace "#rclass">>人族<</replace>>
+    <<replace "#attri">>
+    [HP] $hp
+    [MP] $mp
+    [攻击] $atk
+    [魔法] $mag
+    [速度] $spd
+    [防御] $def
+    [幸运] $luk
+    <</replace>>
+<</link>>
+<</if>>
+
+<<link 是的>>
+<<goto next_one>>
+<</link>>
+<<link "返回">>
+<<goto setting>>
+<</link>>
+<<set $points to 5>>
+:: next_one
+<h3>特性</h3>
+<<set $talents to []>><<set $points to 5>>
+剩余点数：<span id="point">$points</span>
+已选：<span id="talen">无</span>
+
+<<link "<span class='talent' data-desc='汝是带来终末之人\n 你的结局必是史诗及以上，但必死无疑！'> 终末 (5点)</span>">>
+    <<if $points >= 5 and not $talents.includes("终末")>>
+        <<set $points -= 5>>                 <!-- 扣点 -->
+        <<set $talents.push("终末")>>        <!-- 2. 加入数组 -->
+        <<replace "#talen">><<print $talents.join(", ")>><</replace>>
+        <<replace "#point">>$points<</replace>>
+    <</if>>
+<</link>> <<link "<span class='talent' data-desc='汝是终将永恒之人\n 你将无法到达结局！'> 永恒 (5点)</span>">>
+    <<if $points >= 5 and not $talents.includes("永恒")>>
+        <<set $points -= 5>>                 <!-- 扣点 -->
+        <<set $talents.push("永恒")>>        <!-- 2. 加入数组 -->
+        <<replace "#talen">><<print $talents.join(", ")>><</replace>>
+        <<replace "#point">>$points<</replace>>
+    <</if>>
+<</link>> 
+
+
+<<link 取消全部选择>>
+    <<set $talents to []>>
+    <<set $points to 5>>
+    <<replace "#talen">><<print $talents.join(", ")>><</replace>>
+    <<replace "#point">>$points<</replace>>
+<</link>>
+<h4>核心特性：</h4> <<radiobutton "$characteristics" "wisdom">>智慧 <<radiobutton "$characteristics" "power">>力量 <<radiobutton "$characteristics" "survive">>生存
+
+<h2>TODO: 上面是空壳，暂无运算逻辑。正在编写ing…… 
+Tips: 关键块之一；后面还有一个战斗模块，建成后基本上底层就初步完工。</h2>
+
+<<link 确定>>
+<<goto confirm>>
+<</link>>
+<<link "返回">>
+<<goto next>>
+<</link>>
+<<set $hp_1 to $hp; $mp_1 to $mp; $atk_1 to $atk; $def_1 to $def; $spd_1 to $spd; $luk_1 to $luk; $mag_1 to $mag>>
+:: confirm
+<h1>你的设定是：</h1>
+<<set $hp to $hp_1; $mp to $mp_1; $atk to $atk_1; $def to $def_1; $spd to $spd_1; $luk to $luk_1; $mag to $mag_1>>
+<<if $characteristics is "wisdom">>
+    <<set $mp_1 += 100; $spd_1 += 5; $luk_1 += 5; $mag_1 += 50>>
+    <<elseif $characteristics is "power">>
+    <<set $hp_1 += 100; $atk_1 += 50; $def_1 += 20; $spd_1 -= 10; $mag_1 -= 5>>
+    <<elseif $characteristics is "survive">>
+    <<set $hp_1 += 100; $mp_1 += 100; $def_1 += 10; $spd_1 += 5; $mag_1 -= 50>>
+<</if>>
+
+<h2>性别：<<print $gender>></h2><h2>名称：<<print $name>></h2><h2>年龄：<<print $age>></h2><h2>称呼：<<print $call>></h2><h2>种族：<<print $race>>族</h2><h3>
+    HP: $hp → $hp_1
+    MP: $mp → $mp_1
+    攻击: $atk → $atk_1
+    魔法: $mag → $mag_1
+    速度: $spd → $spd_1
+    防御: $def → $def_1
+    幸运: $luk → $luk_1
+    核心特性：【<<print $characteristics>>】
+</h3>
+
+是这样吗？
+
+<<link 是的>>
+<<goto main_test>>
+<</link>>
+<<link "返回">>
+<<goto setting>>
+<</link>> <<link "上一页">>
+<<goto next_one>>
+<</link>>
+:: main_test
+
+<div class="tale_main">Main</div>
+<h3 class="test_main">以下文本皆为测试文本，以后会大改</h3>
+<h4>
+你是<<print $name>>，<<print $age>>岁，
+是一个<<print $call>>，<<if $age lte 0>>
+    
+    <<print "未出生的胚胎">>
+    
+    <<elseif $age lte 3>>
+        <<print 可爱的小家伙>>
+    <<elseif $age lte 7>>
+        <<print 小天使>>
+    <<elseif $age lte 15>>
+        <<if $gender is "男">>
+            帅气的<<print $call>>
+        <<elseif $gender is "女">>
+            可爱的<<print $call>>
+        <<else>>
+            厉害的<<print $call>>
+        <</if>><<else>>
+            不错的<<print $call>>
+<</if>>
+</h4>
+
+:: main
+:: menuscript
+:: menu
+<h3>重命名</h3>
+<input type="text" id="nameInput" placeholder="输入名字（至少2字）" >
+<<link "确认">>
+<<run setup.setName()>>
+<</link>>
+:: fight [script]
+:: skills
+
+:: StoryScript [script]
+/* ========== 暴力拦截输入避免注入！ ========== */
+(function() {
+    const BAD_CHARS = /[^a-zA-Z0-9\u4e00-\u9fa5\s]/g;
+    
+    const sanitize = (str) => {
+        if (typeof str !== 'string') return str;
+        return str.replace(BAD_CHARS, '');
+    };
+    
+    // 只拦截输入框（排除 id=debug）
+    document.addEventListener('input', function(e) {
+        const target = e.target;
+        if ((target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') 
+            && target.id !== 'debug') {  // ← 排除 debug
+            const raw = target.value;
+            const clean = sanitize(raw);
+            if (raw !== clean) {
+                target.value = clean;
+            }
+        }
+    }, true);
+    
+    // 定期扫描变量（排除 debug）
+    setInterval(() => {
+        const vars = State.variables;
+        for (const key in vars) {
+            if (typeof vars[key] === 'string' && key !== 'debug') {
+                vars[key] = sanitize(vars[key]);
+            }
+        }
+    }, 500);
+})();
+
+setup.setAge = function() {
+    var ageStr = document.getElementById('ageInput').value.trim();
+    var age = parseInt(ageStr);
+    
+    // 验证是否为有效数字
+    if (isNaN(age)) {
+        alert('请输入有效的数字');
+        return false;
+    }
+    
+    // 验证年龄范围（假设：初始年龄不得大于 18）
+    if (age > 18) {
+        alert('初始年龄不得大于 18 岁');
+        return false;
+    }
+    
+    // 验证上限（可选）
+    //if (age > 100) {
+    //    alert('年龄不能超过 100 岁');
+    //   return false;
+    //}
+    
+    State.variables.age = age;
+    return true;
+};
+
+setup.setName = function() {
+    var name = document.getElementById('nameInput').value.trim();
+    if (name.length >= 2) {
+        State.variables.name = name;
+        //Engine.play('角色确认');
+    } else {
+        alert('名字至少2个字符');
+    }
+};
+
+setup.setCall = function() {
+    var call = document.getElementById('callInput').value.trim();
+    if (call === '') {
+        alert('称谓不得为空');
+    } else {
+        State.variables.call = call;
+    }
+};
+
+const escapeHTML = str =>
+    str.replace(/[&<>'"]/g, tag => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;'
+    }[tag] || tag));
+
+:: StoryStylesheet [stylesheet]
+* {
+    color: #ceae55;
+}
+.test_main {
+    color: #007092
+}
+body {
+    background: #151510;
+    //color: #000;
+    //font-family: "Noto Serif SC", "思源宋体", "微软雅黑", serif;
+    line-height: 1.8;
+    background-image: url(img/pexels-photo-799459.jpeg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+.chara{
+    color: #98e8fce0;
+    border: 5px solid #af885c4b;
+    border-radius: 5px;
+    border-style: inset;
+    background: #362b1ce7
+}
+#ui-bar, #story-caption, #story-title {
+    //display: none;
+    //color: fff;
+    background: #423017;
+} 
+#ui-bar,#history-backward,#history-forward,#ui-bar-toggle {
+    border: 5px solid #af885c4b;
+    border-radius: 25px;
+}
+/* .link-internal.macro-link{
+    padding: 10px 15px;
+    border: 2px solid #af885c4b;
+    border-radius: 15px;
+    font-size: 16px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+#menu,#story-caption {
+    padding: 20px 20px;
+    border: 3px solid #af885c4b;
+    border-radius: 15px;
+    font-size: 16px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    //box-sizing: border-box;
+    //width: 100%;
+    //max-width: 200px;
+}*/
+
+#passages {
+    max-width: 800px;
+    margin: 80px auto;
+    padding: 40px;
+}
+
+.passage a {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 8px 16px;
+    background: #302d20;
+    color: #8f693788;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+
+ /* 鼠标悬停时的颜色 */ 
+.passage a:hover { 
+    color: #ffd700; 
+    /* 悬停颜色 */ 
+    background-color: rgba(255, 107, 107, 0.1); 
+    /* 背景高亮 */ 
+    }
+/* 输入框基础样式 */
+input[type="text"],
+input[type="number"],
+textarea {
+    padding: 10px 15px;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    font-size: 16px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 200px;
+}
+
+/* 悬停效果 */
+input[type="text"]:hover,
+input[type="number"]:hover,
+textarea:hover {
+    border-color: #666;
+}
+
+/* 聚焦效果（点击后） */
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: #9b6f52;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+/* 占位符文字样式 */
+input::placeholder,
+textarea::placeholder {
+    color: #a6a79d;
+    opacity: 1;
+}
+
+/* 禁用状态 */
+input:disabled,
+textarea:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+/* HTML: <div class="ribbon">Your text content</div> */
+.ribbon {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+}
+.ribbon {
+  --r: .8em; /* control the cutout */
+  
+  border-block: .5em solid #0000;
+  padding-inline: .5em calc(var(--r) + .25em);
+  line-height: 1.5;
+  clip-path: polygon(100% 0,0 0,0 100%,100% 100%,100% calc(100% - .25em),calc(100% - var(--r)) 50%,100% .25em);
+  background:
+   radial-gradient(.2em 50% at left,#000a,#0000) border-box,
+   #ff956b padding-box; /* the color  */
+  width: fit-content;
+}
+
+/* HTML: <div class="ribbon">Your text content</div> */
+.tale_main {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+}
+.tale_main {
+  --c: #DFBA69;
+  /* control the ribbon shape (adjust each variable to understand what it does) */
+  --a: 56deg; 
+  --r: 6deg; 
+  --s: 1.6em;
+  
+  padding: 1.3em; /* you may need to adjust this based on your content */
+  aspect-ratio: 1;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  position: relative;
+  z-index: 0;
+  width: fit-content;
+}
+.tale_main:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: calc(50% - var(--s)/2) -150% auto; /* you can also adjust the 150% to control the shape */
+  border-radius: 999px 999px 0 0;
+  aspect-ratio: 2;
+  border: var(--s) solid color-mix(in srgb, var(--c), #000 35%);
+  border-bottom: none;
+  clip-path: polygon(
+    100% 0,
+    calc(50% + 50%*cos(var(--a))) calc(100% - 100%*sin(var(--a))),
+    calc(50% + (50% - var(--s)/2)*cos(var(--a) + var(--r))) calc(100% - (100% - var(--s)/2)*sin(var(--a) + var(--r))),
+    calc(50% + (50% - var(--s))*cos(var(--a))) calc(100% - (100% - var(--s))*sin(var(--a))),
+    50% 100%,
+    calc(50% - (50% - var(--s))*cos(var(--a))) calc(100% - (100% - var(--s))*sin(var(--a))),
+    calc(50% - (50% - var(--s)/2)*cos(var(--a) + var(--r))) calc(100% - (100% - var(--s)/2)*sin(var(--a) + var(--r))),
+    calc(50% - 50%*cos(var(--a))) calc(100% - 100%*sin(var(--a))),
+    0 0
+  );
+}
+.tale_main:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 10%;
+  rotate: 45deg;
+  outline: .1em solid #0003;
+  background: var(--c);
+  outline-offset: -.4em;
+  border-radius: .3em;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    vertical-align: middle;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* 悬停效果 */
+.slider:hover {
+    background-color: #999;
+}
+
+input:checked + .slider:hover {
+    background-color: #0d8aee;
+}
+
+input[type="radio"] {
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 2px solid #999;
+    border-radius: 50%;
+    background: white;
+    transition: all 0.2s;
+}
+
+input[type="radio"]:checked {
+    border-color: #ccb800;
+    background: #ccb800;
+}
+
+input[type="radio"]:checked::after {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin: 3px;
+    border-radius: 50%;
+    background: white;
+}
+
+input[type="radio"]:hover {
+    border-color: #666;
+}
+
+/* ========== 复选框 (<<checkbox>>) ========== */
+input[type="checkbox"] {
+    width: 23px;
+    height: 23px;
+    margin-right: 8px;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 2px solid #999;
+    border-radius: 4px;
+    background: white;
+    transition: all 0.2s;
+}
+
+input[type="checkbox"]:checked {
+    border-color: #ccb800;
+    background: #ccb800;
+}
+
+input[type="checkbox"]:checked::after {
+    content: "❌";
+    color: white;
+    font-size: 20px;
+    display: block;
+    text-align: center;
+    line-height: 16px;
+}
+
+input[type="checkbox"]:hover {
+    border-color: #666;
+}
+
+.talent {
+    position: relative;
+    display: inline-block;
+}
+
+.talent:hover::after {
+    content: attr(data-desc);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    color: #ff6666;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 100;
+    white-space: pre; 
+}
+
+:: StoryMenu
+<<link "设置">>
+    <<script>>
+        Dialog.setup("设置");
+        Dialog.wikiPassage('menu');
+        Dialog.open();
+    <</script>>
+<</link>>
+:: StoryCaption
+<div class="ribbon">The Tale For You</div>
+<h4>
+    【<<print $race>>】族,【<<print $gender>>】性
+    <h3><p class="chara">$name</p></h3><p class="chara"> 
+    [HP] $hp_1
+    [MP] $mp_1
+    [攻击] $atk_1
+    [魔法] $mag_1
+    [速度] $spd_1
+    [防御] $def_1
+    [幸运] $luk_1 
+    [核心] $characteristics
+    [天赋] <<print $talents.join(", ")>>
+    
+    </p>
+</h4>
+
+:: StoryInit

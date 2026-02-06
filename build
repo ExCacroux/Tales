@@ -1,0 +1,60 @@
+#!/bin/env sh 
+if [ -f "./tales.7z" ]; then
+	rm tales.7z
+fi
+
+: > Tales.twee
+cat ./src/*.twee >> Tales.twee 
+echo "output to Tales.twee"
+
+extwee -c -i Tales.twee -s src/sugarcube-2/format.js -o tale.html
+mkdir tales
+cp tale.html tales/tale.html
+cp -r img tales/img
+cd tales
+touch 请先读我.txt
+echo "草稿阶段，底层雏形快了。
+如要测试，直接将tale.html拖入或者直接打开即可 。
+要源代码找我就行" >> 请先读我.txt
+
+7z a ../tales
+echo "build tales.7z"
+
+
+if [ -d "../tales_xdc" ]; then
+	echo "tales_xdc"
+else
+	mkdir ../tales_xdc
+fi
+cp tale.html ../tales_xdc/index.html
+cp -r ../img ../tales_xdc/img
+cp ../img/tales.png ../tales_xdc/icon.png
+cd ../tales_xdc
+touch manifest.toml
+echo "
+name = 'tale'
+source_code_url = 'unzip！'
+tag_name = 'v0.0.0'
+" >> manifest.toml
+
+zip -9 -r ../tales.xdc .
+echo "build tales.xdc"
+if [ -d "../output" ]; then
+	echo "output"
+else
+	mkdir ../output
+fi
+
+if [ -d "../output/tales" ]; then
+	echo "output/tales"
+else
+	mkdir ../output/tales
+fi
+
+mv ../tales.7z ../output
+mv ../tales.xdc ../output
+mv ../tale.html ../output/tales/
+cp -r ../img ../output/tales/
+
+rm -rf ../tales
+rm -rf ../tales_xdc

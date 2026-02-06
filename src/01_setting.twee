@@ -1,0 +1,66 @@
+:: setting
+<<set $race to "">><<set $gender to "">><<set $name to "">><<set $age to "">><<set $call to "">> <<set $hp to 100>><<set $mp to 100>><<set $atk to 10>><<set $def to 10>><<set $spd to 5>><<set $luk to 5>><<set $mag to 10>>
+<<set $talents to []>>
+<h1> 角色创建</h1>
+<h2>请设置性别：</h2><h3>当前性别:<span id="gender-display">未选择</span></h3>
+<<link "男性">>
+    <<set $gender to "男">>
+    <<replace "#gender-display">>男<</replace>>
+    <<replace "#call-display">>
+        <<link "男孩子">>
+            <<set $call to "男孩子">>
+            <<replace "#call-display">>男孩子<</replace>>
+        <</link>>
+        <<link "男人">>
+            <<set $call to "男人">>
+            <<replace "#call-display">>男人<</replace>>
+        <</link>>
+    <</replace>>
+<</link>> <<link "女性">>
+    <<set $gender to "女">>
+    <<replace "#gender-display">>女<</replace>>
+    <<replace "#call-display">>
+        <<link "女孩子">>
+            <<set $call to "女孩子">>
+            <<replace "#call-display">>女孩子<</replace>>
+        <</link>>
+        <<link "女人">>
+            <<set $call to "女人">>
+            <<replace "#call-display">>女人<</replace>>
+        <</link>>
+    <</replace>>
+<</link>> <<link "无性">>
+    <<set $gender to "无">>
+    <<replace "#gender-display">>无<</replace>>
+    <<replace "#call-display">>
+        <input type="text" id="callInput" placeholder="输入称谓">
+    <</replace>>
+<</link>>
+
+<h2>输入名称：</h2>
+<input type="text" id="nameInput" placeholder="输入名字（至少2字）" >
+
+<h2>你的称呼：</h2><div id="call-display"><<print "请先选择性别">></div>
+
+<h2>输入年龄：</h2><input type="number" id="ageInput" placeholder="年龄" min="1" max="100">
+<<link "确认">>
+<<run setup.setName()>>
+<<if $gender is "无">>
+<<run setup.setCall()>>
+<</if>>
+    <<if setup.setAge()>>
+        <<if $gender is "">>
+            <<replace "#error">>请先选择性别<</replace>>
+            <<goto "setting">>
+        <<elseif $name is "">>
+            <<replace "#error">>请先选择名字<</replace>>
+            <<goto "setting">>
+        <<else>>
+            <<goto "next">>
+        <</if>>
+    <</if>>
+<</link>>
+
+<span id="error" style="color: red;"></span>
+<<set $characteristics to "">><<set $characteristics_end to "">><<set $characteristics_eternal to "">>
+<<set $hp_1 to ""; $mp_1 to ""; $atk_1 to ""; $def_1 to ""; $spd_1 to ""; $luk_1 to ""; $mag_1 to "">>

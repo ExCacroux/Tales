@@ -1,0 +1,88 @@
+:: StoryScript [script]
+/* ========== 暴力拦截输入避免注入！ ========== */
+(function() {
+    const BAD_CHARS = /[^a-zA-Z0-9\u4e00-\u9fa5\s]/g;
+    
+    const sanitize = (str) => {
+        if (typeof str !== 'string') return str;
+        return str.replace(BAD_CHARS, '');
+    };
+    
+    // 只拦截输入框（排除 id=debug）
+    document.addEventListener('input', function(e) {
+        const target = e.target;
+        if ((target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') 
+            && target.id !== 'debug') {  // ← 排除 debug
+            const raw = target.value;
+            const clean = sanitize(raw);
+            if (raw !== clean) {
+                target.value = clean;
+            }
+        }
+    }, true);
+    
+    // 定期扫描变量（排除 debug）
+    setInterval(() => {
+        const vars = State.variables;
+        for (const key in vars) {
+            if (typeof vars[key] === 'string' && key !== 'debug') {
+                vars[key] = sanitize(vars[key]);
+            }
+        }
+    }, 500);
+})();
+
+setup.setAge = function() {
+    var ageStr = document.getElementById('ageInput').value.trim();
+    var age = parseInt(ageStr);
+    
+    // 验证是否为有效数字
+    if (isNaN(age)) {
+        alert('请输入有效的数字');
+        return false;
+    }
+    
+    // 验证年龄范围（假设：初始年龄不得大于 18）
+    if (age > 18) {
+        alert('初始年龄不得大于 18 岁');
+        return false;
+    }
+    
+    // 验证上限（可选）
+    //if (age > 100) {
+    //    alert('年龄不能超过 100 岁');
+    //   return false;
+    //}
+    
+    State.variables.age = age;
+    return true;
+};
+
+setup.setName = function() {
+    var name = document.getElementById('nameInput').value.trim();
+    if (name.length >= 2) {
+        State.variables.name = name;
+        //Engine.play('角色确认');
+    } else {
+        alert('名字至少2个字符');
+    }
+};
+
+setup.setCall = function() {
+    var call = document.getElementById('callInput').value.trim();
+    if (call === '') {
+        alert('称谓不得为空');
+    } else {
+        State.variables.call = call;
+    }
+};
+
+const escapeHTML = str =>
+    str.replace(/[&<>'"]/g, tag => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;'
+    }[tag] || tag));
+

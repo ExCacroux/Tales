@@ -1,0 +1,44 @@
+:: next
+<h3>当前种族：<span id="rclass">无</span></h3>
+<h4>
+<span id="attri">属性</span>
+</h4>
+<<if $age lte 12>>
+    <<link 灵族>>
+        <<set $hp to 100; $mp to 100; $atk to 10; $def to 10; $spd to 5; $luk to 5; $mag to 10>>
+        <<set $race to "灵";$mag to 20;$mp to 200;$spd to 10;$luk to 10>>
+    <<replace "#rclass">>灵族<</replace>>
+    <<replace "#attri">>
+    [HP] $hp
+    [MP] $mp
+    [攻击] $atk
+    [魔法] $mag
+    [速度] $spd
+    [防御] $def
+    [幸运] $luk
+    <</replace>>
+    <</link>>   
+<</if>><<if $age gte 12>>
+    <<link 人族>>
+        <<set $hp to 100; $mp to 100; $atk to 10; $def to 10; $spd to 5; $luk to 5; $mag to 10>>
+        <<set $race to "人";$atk to 20;$hp to 150;$def to 15;$luk to 10>>
+    <<replace "#rclass">>人族<</replace>>
+    <<replace "#attri">>
+    [HP] $hp
+    [MP] $mp
+    [攻击] $atk
+    [魔法] $mag
+    [速度] $spd
+    [防御] $def
+    [幸运] $luk
+    <</replace>>
+<</link>>
+<</if>>
+
+<<link 是的>>
+<<goto next_one>>
+<</link>>
+<<link "返回">>
+<<goto setting>>
+<</link>>
+<<set $points to 5>>
