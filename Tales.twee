@@ -670,7 +670,7 @@ input[type="checkbox"]:hover {
 
  
 .typescreen {
-    text-indent: -80px;
+    text-indent: -90px;
     display: block;
     width: 100%;
     text-align: center;
