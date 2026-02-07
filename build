@@ -12,10 +12,6 @@ mkdir tales
 cp tale.html tales/tale.html
 cp -r img tales/img
 cd tales
-touch 请先读我.txt
-echo "草稿阶段，底层雏形快了。
-如要测试，直接将tale.html拖入或者直接打开即可 。
-要源代码找我就行" >> 请先读我.txt
 
 7z a ../tales
 echo "build tales.7z"
