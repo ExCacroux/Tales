@@ -1,8 +1,7 @@
 :: main_test
 
-<div class="tale_main">Main</div>
 <h3 class="test_main">以下文本皆为测试文本，以后会大改</h3>
-<h4>
+<p class="main_text">
 你是<<print $name>>，<<print $age>>岁，
 是一个<<print $call>>，<<if $age lte 0>>
     
@@ -22,5 +21,5 @@
         <</if>><<else>>
             不错的<<print $call>>
 <</if>>
-</h4>
+</p>
 

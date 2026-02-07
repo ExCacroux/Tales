@@ -17,7 +17,7 @@ body {
 }
 .chara{
     color: #98e8fce0;
-    border: 5px solid #af885c4b;
+    border: 3px solid #af885c4b;
     border-radius: 5px;
     border-style: inset;
     background: #362b1ce7
@@ -28,7 +28,7 @@ body {
     background: #423017;
 } 
 #ui-bar,#history-backward,#history-forward,#ui-bar-toggle {
-    border: 5px solid #af885c4b;
+    border: 2px solid #af885c4b;
     border-radius: 25px;
 }
 /* .link-internal.macro-link{
@@ -139,59 +139,8 @@ textarea:disabled {
   width: fit-content;
 }
 
-/* HTML: <div class="ribbon">Your text content</div> */
-.tale_main {
-  font-size: 28px;
-  font-weight: bold;
-  color: #fff;
-}
-.tale_main {
-  --c: #DFBA69;
-  /* control the ribbon shape (adjust each variable to understand what it does) */
-  --a: 56deg; 
-  --r: 6deg; 
-  --s: 1.6em;
-  
-  padding: 1.3em; /* you may need to adjust this based on your content */
-  aspect-ratio: 1;
-  display: grid;
-  place-content: center;
-  text-align: center;
-  position: relative;
-  z-index: 0;
-  width: fit-content;
-}
-.tale_main:before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: calc(50% - var(--s)/2) -150% auto; /* you can also adjust the 150% to control the shape */
-  border-radius: 999px 999px 0 0;
-  aspect-ratio: 2;
-  border: var(--s) solid color-mix(in srgb, var(--c), #000 35%);
-  border-bottom: none;
-  clip-path: polygon(
-    100% 0,
-    calc(50% + 50%*cos(var(--a))) calc(100% - 100%*sin(var(--a))),
-    calc(50% + (50% - var(--s)/2)*cos(var(--a) + var(--r))) calc(100% - (100% - var(--s)/2)*sin(var(--a) + var(--r))),
-    calc(50% + (50% - var(--s))*cos(var(--a))) calc(100% - (100% - var(--s))*sin(var(--a))),
-    50% 100%,
-    calc(50% - (50% - var(--s))*cos(var(--a))) calc(100% - (100% - var(--s))*sin(var(--a))),
-    calc(50% - (50% - var(--s)/2)*cos(var(--a) + var(--r))) calc(100% - (100% - var(--s)/2)*sin(var(--a) + var(--r))),
-    calc(50% - 50%*cos(var(--a))) calc(100% - 100%*sin(var(--a))),
-    0 0
-  );
-}
-.tale_main:after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: 10%;
-  rotate: 45deg;
-  outline: .1em solid #0003;
-  background: var(--c);
-  outline-offset: -.4em;
-  border-radius: .3em;
+.main_text{
+    font-size:20px;
 }
 
 .switch {
@@ -258,7 +207,7 @@ input[type="radio"] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    border: 2px solid #999;
+    border: 0px solid #999;
     border-radius: 50%;
     background: white;
     transition: all 0.2s;
@@ -354,4 +303,46 @@ input[type="checkbox"]:hover {
     display: block;
     text-align: center;
     margin-left: -80px; 
+}
+
+#menu-core,#menu-story{
+    border:4px;
+    border-radius: 15px;
+}
+#menu-core li a:hover {
+    background: #302d20;
+    color: #ffcc66;
+    border-radius: 15px;
+}
+#menu-story li a:hover {
+    background: #302d20;
+    color: #ffcc66;
+    border-radius: 15px;
+}
+#ui-dialog-body{
+    display: inline-block;
+    margin: 10px 0;
+    padding: 8px 16px;
+    color: #8f693788;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 20px
+}
+
+#ui-dialog-body a {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 8px 16px;
+    background: #302d20;
+    color: #8f693788;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 110px; 
+}
+#ui-dialog-body a:hover { 
+    color: #ffd700; 
+    /* 悬停颜色 */ 
+    background-color: rgba(255, 107, 107, 0.1); 
+    /* 背景高亮 */ 
 }
