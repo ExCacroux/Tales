@@ -11,7 +11,7 @@ Tales
 }
 :: setting
 <<script>>UIBar.show().unstow();<</script>>
-<<set $race to "">><<set $gender to "">><<set $name to "none">><<set $age to "">><<set $call to "">> <<set $hp to 100>><<set $mp to 100>><<set $atk to 10>><<set $def to 10>><<set $spd to 5>><<set $luk to 5>><<set $mag to 10>>
+<<set $race to "???">><<set $gender to "???">><<set $name to "???">><<set $age to "">><<set $call to "">> <<set $hp to 100>><<set $mp to 100>><<set $atk to 10>><<set $def to 10>><<set $spd to 5>><<set $luk to 5>><<set $mag to 10>>
 <<set $talents to []>>
 <h1> 角色创建</h1>
 <h2>请设置性别：</h2><h3>当前性别:<span id="gender-display">未选择</span></h3>
