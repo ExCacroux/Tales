@@ -150,8 +150,6 @@ Tales
 <</link>>
 <h4>核心特性：</h4> <<radiobutton "$characteristics" "wisdom">>智慧 <<radiobutton "$characteristics" "power">>力量 <<radiobutton "$characteristics" "survive">>生存
 
-<h2>TODO: 上面是空壳，暂无运算逻辑。正在编写ing…… 
-Tips: 关键块之一；后面还有一个战斗模块，建成后基本上底层就初步完工。</h2>
 
 <<link 确定>>
 <<goto confirm>>
