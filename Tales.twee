@@ -395,6 +395,8 @@ body {
     color: #8f693788;
     text-decoration: none;
     border-radius: 5px;
+    filter: drop-shadow(0 0 1px #ffcc66) drop-shadow(0 0 2px #ffcc66);
+    transition: all 0.3s;
 }
 
 
@@ -404,6 +406,7 @@ body {
     /* 悬停颜色 */ 
     background-color: rgba(255, 107, 107, 0.1); 
     /* 背景高亮 */ 
+    filter: drop-shadow(0 0 2px #ffcc66) drop-shadow(0 0 4px #ffcc66);
     }
 /* 输入框基础样式 */
 input[type="text"],
@@ -629,12 +632,18 @@ input[type="checkbox"]:hover {
     font-weight: bold;
     background-size: 100%;
 }
-.typebutton{
+.typebutton a{
     display: block;
     text-align: center;
     margin-left: -80px; 
+    max-width: 70px;
+    filter: drop-shadow(0 0 5px #ffcc66) drop-shadow(0 0 10px #ffcc66);
+    transition: all 0.3s;
 }
-
+.typebutton a:hover {
+    max-width: 70px;
+    filter: drop-shadow(0 0 10px #ffcc66) drop-shadow(0 0 20px #ffcc66);
+}
 #menu-core,#menu-story{
     border:4px;
     border-radius: 15px;
@@ -676,6 +685,11 @@ input[type="checkbox"]:hover {
     background-color: rgba(255, 107, 107, 0.1); 
     /* 背景高亮 */ 
 }
+#passages h1, h2 {
+    filter: drop-shadow(0 0 10px #ffcc66) drop-shadow(0 0 20px #e2a156);
+    transition: all 0.3s;
+}
+
 :: StoryMenu
 <<link "设置">>
     <<script>>
