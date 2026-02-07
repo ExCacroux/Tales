@@ -6,6 +6,6 @@ Tales
   "ifid": "5376C828-23EF-4A8B-AEFD-981EA13A112F",
   "format": "SugarCube",
   "format-version": "2.37.3",
-  "start": "setting",
+  "start": "start",
   "zoom": 1
 }
