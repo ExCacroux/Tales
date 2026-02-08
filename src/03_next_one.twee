@@ -1,7 +1,7 @@
 :: next_one
-<h3>特性</h3>
-<<set $talents to []>><<set $points to 5>>
-剩余点数：<span id="point">$points</span>
+<h2>特性</h2>
+<<set $talents to []>><<set $points to 5>><<set $a_points to 5>><<set $attributes to []>>
+剩余天赋点数：<span id="point">$points</span>
 已选：<span id="talen">无</span>
 
 <<link "<span class='talent' data-desc='汝是带来终末之人\n 你的结局必是史诗及以上，但必死无疑！'> 终末 (5点)</span>">>
@@ -29,6 +29,67 @@
 <</link>>
 <h4>核心特性：</h4> <<radiobutton "$characteristics" "wisdom">>智慧 <<radiobutton "$characteristics" "power">>力量 <<radiobutton "$characteristics" "survive">>生存
 
+<h2>元素属性</h2>
+剩余元素点数：<span id="apoint">$points</span>
+已选：<span id="attri">无</span>
+
+太一侧属性：
+<<link "<span class='talent' data-desc='冰属性\n 特性：寒冷，冻结，静止'> 冰 (1点)</span>">>
+    <<if $a_points >= 1 and not $attributes.includes("冰")>>
+        <<set $a_points -= 1>>                 <!-- 扣点 -->
+        <<set $attributes.push("冰")>>        <!-- 2. 加入数组 -->
+        <<replace "#attri">><<print $attributes.join(", ")>><</replace>>
+        <<replace "#apoint">>$a_points<</replace>>
+    <</if>>
+<</link>> <<link "<span class='talent' data-desc='雷属性\n 特性：能量，电磁效应，狂暴'> 雷 (1点)</span>">>
+    <<if $a_points >= 1 and not $attributes.includes("雷")>>
+        <<set $a_points -= 1>>                 <!-- 扣点 -->
+        <<set $attributes.push("雷")>>        <!-- 2. 加入数组 -->
+        <<replace "#attri">><<print $attributes.join(", ")>><</replace>>
+        <<replace "#apoint">>$a_points<</replace>>
+    <</if>>
+<</link>> 
+
+弦侧属性：
+<<link "<span class='talent' data-desc='电属性\n 特性：能量，电磁效应，场'> 电 (1点)</span>">>
+    <<if $a_points >= 1 and not $attributes.includes("电")>>
+        <<set $a_points -= 1>>                 <!-- 扣点 -->
+        <<set $attributes.push("电")>>        <!-- 2. 加入数组 -->
+        <<replace "#attri">><<print $attributes.join(", ")>><</replace>>
+        <<replace "#apoint">>$a_points<</replace>>
+    <</if>>
+<</link>> <<link "<span class='talent' data-desc='磁属性\n 特性：场，电磁效应，吸引'> 磁 (1点)</span>">>
+    <<if $a_points >= 1 and not $attributes.includes("磁")>>
+        <<set $a_points -= 1>>                 <!-- 扣点 -->
+        <<set $attributes.push("磁")>>        <!-- 2. 加入数组 -->
+        <<replace "#attri">><<print $attributes.join(", ")>><</replace>>
+        <<replace "#apoint">>$a_points<</replace>>
+    <</if>>
+<</link>> 
+
+原初属性：
+<<link "<span class='talent' data-desc='弦属性\n 特性：基本粒子，万物归一，未知'> 弦 (5点)</span>">>
+    <<if $a_points >= 5 and not $attributes.includes("弦")>>
+        <<set $a_points -= 5>>                 <!-- 扣点 -->
+        <<set $attributes.push("弦")>>        <!-- 2. 加入数组 -->
+        <<replace "#attri">><<print $attributes.join(", ")>><</replace>>
+        <<replace "#apoint">>$a_points<</replace>>
+    <</if>>
+<</link>> <<link "<span class='talent' data-desc='太一属性\n 特性：基本能量，万物归一，未知'> 太一 (5点)</span>">>
+    <<if $a_points >= 5 and not $attributes.includes("太一")>>
+        <<set $a_points -= 5>>                 <!-- 扣点 -->
+        <<set $attributes.push("太一")>>        <!-- 2. 加入数组 -->
+        <<replace "#attri">><<print $attributes.join(", ")>><</replace>>
+        <<replace "#apoint">>$a_points<</replace>>
+    <</if>>
+<</link>> 
+
+<<link 取消全部选择>>
+    <<set $attributes to []>>
+    <<set $a_points to 5>>
+    <<replace "#attri">><<print $attributes.join(", ")>><</replace>>
+    <<replace "#apoint">>$a_points<</replace>>
+<</link>>
 
 <<link 确定>>
 <<goto confirm>>

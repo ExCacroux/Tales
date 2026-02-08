@@ -41,4 +41,5 @@
 <<link "返回">>
 <<goto setting>>
 <</link>>
-<<set $points to 5>>
+<<set $points to 5>><<set $a_points to 5>>
+

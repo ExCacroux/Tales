@@ -12,7 +12,7 @@
     [幸运] $luk_1 
     [核心] $characteristics
     [天赋] <<print $talents.join(", ")>>
-    
+    [属性] <<print $attributes.join(", ")>>
     </p>
 </h4>
 
