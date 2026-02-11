@@ -115,7 +115,15 @@ Tales
 :: next
 <h3>当前种族：<span id="rclass">无</span></h3>
 <h4>
-<span id="attri">属性</span>
+<span id="attri">
+    [HP] $hp <br>
+    [MP] $mp <br>
+    [攻击] $atk <br>
+    [魔法] $mag <br>
+    [速度] $spd <br>
+    [防御] $def <br>
+    [幸运] $luk <br>
+</span>
 </h4>
 <<if $age lte 12>>
     <br>
@@ -133,8 +141,8 @@ Tales
     [幸运] $luk <br>
     <</replace>>
     <</link>>   
-<</if>><<if $age gte 12>>
-    <br>
+<</if>>
+<<if $age gte 12>>
     <<link 人族>>
         <<set $hp to 100; $mp to 100; $atk to 10; $def to 10; $spd to 5; $luk to 5; $mag to 10>>
         <<set $race to "人";$atk to 20;$hp to 150;$def to 15;$luk to 10>>
