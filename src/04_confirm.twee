@@ -10,18 +10,18 @@
 <</if>>
 
 <h2>性别：<<print $gender>></h2><h2>名称：<<print $name>></h2><h2>年龄：<<print $age>></h2><h2>称呼：<<print $call>></h2><h2>种族：<<print $race>>族</h2><h3>
-    HP: $hp → $hp_1
-    MP: $mp → $mp_1
-    攻击: $atk → $atk_1
-    魔法: $mag → $mag_1
-    速度: $spd → $spd_1
-    防御: $def → $def_1
-    幸运: $luk → $luk_1
+    HP: $hp → $hp_1 <br>
+    MP: $mp → $mp_1 <br>
+    攻击: $atk → $atk_1 <br>
+    魔法: $mag → $mag_1 <br>
+    速度: $spd → $spd_1 <br>
+    防御: $def → $def_1 <br>
+    幸运: $luk → $luk_1 <br>
     核心特性：【<<print $characteristics>>】
 </h3>
 
 是这样吗？
-
+<br>
 <<link 是的>>
 <<goto main_test>>
 <</link>>

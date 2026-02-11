@@ -3,16 +3,16 @@
 <h4>
     【<<print $race>>】族,【<<print $gender>>】性
     <h3><p class="chara">$name</p></h3><p class="chara"> 
-    [HP] $hp_1
-    [MP] $mp_1
-    [攻击] $atk_1
-    [魔法] $mag_1
-    [速度] $spd_1
-    [防御] $def_1
-    [幸运] $luk_1 
-    [核心] $characteristics
-    [天赋] <<print $talents.join(", ")>>
-    [属性] <<print $attributes.join(", ")>>
+    [HP] $hp_1 <br>
+    [MP] $mp_1 <br>
+    [攻击] $atk_1 <br>
+    [魔法] $mag_1 <br>
+    [速度] $spd_1 <br>
+    [防御] $def_1 <br>
+    [幸运] $luk_1 <br>
+    [核心] $characteristics <br>
+    [天赋] <<print $talents.join(", ")>> <br>
+    [属性] <<print $attributes.join(", ")>> <br>
     </p>
 </h4>
 

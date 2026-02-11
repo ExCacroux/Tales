@@ -1,0 +1,6 @@
+sugarcube-2:
+  macros:
+    initwid:
+      name: initwid
+    initvar:
+      name: initvar

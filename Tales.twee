@@ -1,3 +1,5 @@
+:: StoryInit
+
 :: StoryTitle
 Tales
 
@@ -11,8 +13,6 @@ Tales
 }
 :: setting
 <<script>>UIBar.show().unstow();<</script>>
-<<set $race to "???">><<set $gender to "???">><<set $name to "???">><<set $age to "">><<set $call to "">> <<set $hp to 100>><<set $mp to 100>><<set $atk to 10>><<set $def to 10>><<set $spd to 5>><<set $luk to 5>><<set $mag to 10>>
-<<set $talents to []>><<set $attributes to []>>
 <h1> 角色创建</h1>
 <h2>请设置性别：</h2><h3>当前性别:<span id="gender-display">未选择</span></h3>
 <<link "男性">>
@@ -55,6 +55,7 @@ Tales
 <h2>你的称呼：</h2><div id="call-display"><<print "请先选择性别">></div>
 
 <h2>输入年龄：</h2><input type="number" id="ageInput" placeholder="年龄" min="1" max="100">
+
 <<link "确认">>
 <<run setup.setName()>>
 <<if $gender is "无">>
@@ -74,11 +75,9 @@ Tales
 <</link>>
 
 <span id="error" style="color: red;"></span>
-<<set $characteristics to "">><<set $characteristics_end to "">><<set $characteristics_eternal to "">>
-<<set $hp_1 to ""; $mp_1 to ""; $atk_1 to ""; $def_1 to ""; $spd_1 to ""; $luk_1 to ""; $mag_1 to "">>
+<<initwid>><<initvar>>
+
 :: start
-
-
 <h2><<type 100ms>><p class="typescreen">故事于此开始</p><</type>></h2><h2><<type 100ms>><p class="typescreen">故事于此终结</p><</type>></h2><h1><<type 100ms>><p class="typescreen">The Tale for you</p><</type>></h1>
 <<script>>
     UIBar.hide().stow(true);
@@ -89,46 +88,73 @@ Tales
         <<goto "setting">></center>
     <</link>>
 <</timed>>
+:: initwidget [widget]
+<<widget "initwid">>
+    <<set $characteristics to "">>
+    <<set $characteristics_end to "">>
+    <<set $characteristics_eternal to "">>
+    <<set $hp_1 to ""; $mp_1 to ""; $atk_1 to ""; $def_1 to ""; $spd_1 to ""; $luk_1 to ""; $mag_1 to "">>
+<</widget>>
+
+<<widget "initvar">>
+    <<set $race to "???">>
+    <<set $gender to "???">>
+    <<set $name to "???">>
+    <<set $age to "">>
+    <<set $call to "">> 
+    <<set $hp to 100>>
+    <<set $mp to 100>>
+    <<set $atk to 10>>
+    <<set $def to 10>>
+    <<set $spd to 5>>
+    <<set $luk to 5>>
+    <<set $mag to 10>>
+    <<set $talents to []>>
+    <<set $attributes to []>>
+<</widget>>
 :: next
 <h3>当前种族：<span id="rclass">无</span></h3>
 <h4>
 <span id="attri">属性</span>
 </h4>
 <<if $age lte 12>>
+    <br>
     <<link 灵族>>
         <<set $hp to 100; $mp to 100; $atk to 10; $def to 10; $spd to 5; $luk to 5; $mag to 10>>
         <<set $race to "灵";$mag to 20;$mp to 200;$spd to 10;$luk to 10>>
     <<replace "#rclass">>灵族<</replace>>
     <<replace "#attri">>
-    [HP] $hp
-    [MP] $mp
-    [攻击] $atk
-    [魔法] $mag
-    [速度] $spd
-    [防御] $def
-    [幸运] $luk
+    [HP] $hp <br>
+    [MP] $mp <br>
+    [攻击] $atk <br>
+    [魔法] $mag <br>
+    [速度] $spd <br>
+    [防御] $def <br>
+    [幸运] $luk <br>
     <</replace>>
     <</link>>   
 <</if>><<if $age gte 12>>
+    <br>
     <<link 人族>>
         <<set $hp to 100; $mp to 100; $atk to 10; $def to 10; $spd to 5; $luk to 5; $mag to 10>>
         <<set $race to "人";$atk to 20;$hp to 150;$def to 15;$luk to 10>>
     <<replace "#rclass">>人族<</replace>>
     <<replace "#attri">>
-    [HP] $hp
-    [MP] $mp
-    [攻击] $atk
-    [魔法] $mag
-    [速度] $spd
-    [防御] $def
-    [幸运] $luk
+    [HP] $hp <br>
+    [MP] $mp <br>
+    [攻击] $atk <br>
+    [魔法] $mag <br>
+    [速度] $spd <br>
+    [防御] $def <br>
+    [幸运] $luk <br>
     <</replace>>
 <</link>>
 <</if>>
-
+<br>
 <<link 是的>>
 <<goto next_one>>
 <</link>>
+
 <<link "返回">>
 <<goto setting>>
 <</link>>
@@ -139,7 +165,7 @@ Tales
 <<set $talents to []>><<set $points to 5>><<set $a_points to 5>><<set $attributes to []>>
 剩余天赋点数：<span id="point">$points</span>
 已选：<span id="talen">无</span>
-
+<br>
 <<link "<span class='talent' data-desc='汝是带来终末之人\n 你的结局必是史诗及以上，但必死无疑！'> 终末 (5点)</span>">>
     <<if $points >= 5 and not $talents.includes("终末")>>
         <<set $points -= 5>>                 <!-- 扣点 -->
@@ -147,7 +173,8 @@ Tales
         <<replace "#talen">><<print $talents.join(", ")>><</replace>>
         <<replace "#point">>$points<</replace>>
     <</if>>
-<</link>> <<link "<span class='talent' data-desc='汝是终将永恒之人\n 你将无法到达结局！'> 永恒 (5点)</span>">>
+<</link>> 
+<<link "<span class='talent' data-desc='汝是终将永恒之人\n 你将无法到达结局！'> 永恒 (5点)</span>">>
     <<if $points >= 5 and not $talents.includes("永恒")>>
         <<set $points -= 5>>                 <!-- 扣点 -->
         <<set $talents.push("永恒")>>        <!-- 2. 加入数组 -->
@@ -156,7 +183,7 @@ Tales
     <</if>>
 <</link>> 
 
-
+<br>
 <<link 取消全部选择>>
     <<set $talents to []>>
     <<set $points to 5>>
@@ -168,8 +195,9 @@ Tales
 <h2>元素属性</h2>
 剩余元素点数：<span id="apoint">$points</span>
 已选：<span id="attri">无</span>
-
+<br>
 太一侧属性：
+<br>
 <<link "<span class='talent' data-desc='冰属性\n 特性：寒冷，冻结，静止'> 冰 (1点)</span>">>
     <<if $a_points >= 1 and not $attributes.includes("冰")>>
         <<set $a_points -= 1>>                 <!-- 扣点 -->
@@ -177,7 +205,8 @@ Tales
         <<replace "#attri">><<print $attributes.join(", ")>><</replace>>
         <<replace "#apoint">>$a_points<</replace>>
     <</if>>
-<</link>> <<link "<span class='talent' data-desc='雷属性\n 特性：能量，电磁效应，狂暴'> 雷 (1点)</span>">>
+<</link>> 
+<<link "<span class='talent' data-desc='雷属性\n 特性：能量，电磁效应，狂暴'> 雷 (1点)</span>">>
     <<if $a_points >= 1 and not $attributes.includes("雷")>>
         <<set $a_points -= 1>>                 <!-- 扣点 -->
         <<set $attributes.push("雷")>>        <!-- 2. 加入数组 -->
@@ -185,8 +214,9 @@ Tales
         <<replace "#apoint">>$a_points<</replace>>
     <</if>>
 <</link>> 
-
+<br>
 弦侧属性：
+<br>
 <<link "<span class='talent' data-desc='电属性\n 特性：能量，电磁效应，场'> 电 (1点)</span>">>
     <<if $a_points >= 1 and not $attributes.includes("电")>>
         <<set $a_points -= 1>>                 <!-- 扣点 -->
@@ -194,7 +224,8 @@ Tales
         <<replace "#attri">><<print $attributes.join(", ")>><</replace>>
         <<replace "#apoint">>$a_points<</replace>>
     <</if>>
-<</link>> <<link "<span class='talent' data-desc='磁属性\n 特性：场，电磁效应，吸引'> 磁 (1点)</span>">>
+<</link>> 
+<<link "<span class='talent' data-desc='磁属性\n 特性：场，电磁效应，吸引'> 磁 (1点)</span>">>
     <<if $a_points >= 1 and not $attributes.includes("磁")>>
         <<set $a_points -= 1>>                 <!-- 扣点 -->
         <<set $attributes.push("磁")>>        <!-- 2. 加入数组 -->
@@ -202,8 +233,9 @@ Tales
         <<replace "#apoint">>$a_points<</replace>>
     <</if>>
 <</link>> 
-
+<br>
 原初属性：
+<br>
 <<link "<span class='talent' data-desc='弦属性\n 特性：基本粒子，万物归一，未知'> 弦 (5点)</span>">>
     <<if $a_points >= 5 and not $attributes.includes("弦")>>
         <<set $a_points -= 5>>                 <!-- 扣点 -->
@@ -211,7 +243,8 @@ Tales
         <<replace "#attri">><<print $attributes.join(", ")>><</replace>>
         <<replace "#apoint">>$a_points<</replace>>
     <</if>>
-<</link>> <<link "<span class='talent' data-desc='太一属性\n 特性：基本能量，万物归一，未知'> 太一 (5点)</span>">>
+<</link>> 
+<<link "<span class='talent' data-desc='太一属性\n 特性：基本能量，万物归一，未知'> 太一 (5点)</span>">>
     <<if $a_points >= 5 and not $attributes.includes("太一")>>
         <<set $a_points -= 5>>                 <!-- 扣点 -->
         <<set $attributes.push("太一")>>        <!-- 2. 加入数组 -->
@@ -219,14 +252,14 @@ Tales
         <<replace "#apoint">>$a_points<</replace>>
     <</if>>
 <</link>> 
-
+<br>
 <<link 取消全部选择>>
     <<set $attributes to []>>
     <<set $a_points to 5>>
     <<replace "#attri">><<print $attributes.join(", ")>><</replace>>
     <<replace "#apoint">>$a_points<</replace>>
 <</link>>
-
+<br>
 <<link 确定>>
 <<goto confirm>>
 <</link>>
@@ -246,18 +279,18 @@ Tales
 <</if>>
 
 <h2>性别：<<print $gender>></h2><h2>名称：<<print $name>></h2><h2>年龄：<<print $age>></h2><h2>称呼：<<print $call>></h2><h2>种族：<<print $race>>族</h2><h3>
-    HP: $hp → $hp_1
-    MP: $mp → $mp_1
-    攻击: $atk → $atk_1
-    魔法: $mag → $mag_1
-    速度: $spd → $spd_1
-    防御: $def → $def_1
-    幸运: $luk → $luk_1
+    HP: $hp → $hp_1 <br>
+    MP: $mp → $mp_1 <br>
+    攻击: $atk → $atk_1 <br>
+    魔法: $mag → $mag_1 <br>
+    速度: $spd → $spd_1 <br>
+    防御: $def → $def_1 <br>
+    幸运: $luk → $luk_1 <br>
     核心特性：【<<print $characteristics>>】
 </h3>
 
 是这样吗？
-
+<br>
 <<link 是的>>
 <<goto main_test>>
 <</link>>
@@ -299,7 +332,10 @@ Tales
 <<link "确认">>
 <<run setup.setName()>>
 <</link>>
-:: fight [script]
+:: enemy [widget]
+
+:: fight [widget]
+
 :: skills
 
 :: StoryScript [script]
@@ -389,7 +425,10 @@ const escapeHTML = str =>
         "'": '&#39;',
         '"': '&quot;'
     }[tag] || tag));
-
+    
+Config.passages.onProcess = function (p) {
+	return p.text.replace(/[\t\n]+/g, '');
+};
 :: StoryStylesheet [stylesheet]
 * {
     color: #ceae55;
@@ -766,17 +805,16 @@ input[type="checkbox"]:hover {
 <h4>
     【<<print $race>>】族,【<<print $gender>>】性
     <h3><p class="chara">$name</p></h3><p class="chara"> 
-    [HP] $hp_1
-    [MP] $mp_1
-    [攻击] $atk_1
-    [魔法] $mag_1
-    [速度] $spd_1
-    [防御] $def_1
-    [幸运] $luk_1 
-    [核心] $characteristics
-    [天赋] <<print $talents.join(", ")>>
-    [属性] <<print $attributes.join(", ")>>
+    [HP] $hp_1 <br>
+    [MP] $mp_1 <br>
+    [攻击] $atk_1 <br>
+    [魔法] $mag_1 <br>
+    [速度] $spd_1 <br>
+    [防御] $def_1 <br>
+    [幸运] $luk_1 <br>
+    [核心] $characteristics <br>
+    [天赋] <<print $talents.join(", ")>> <br>
+    [属性] <<print $attributes.join(", ")>> <br>
     </p>
 </h4>
 
-:: StoryInit

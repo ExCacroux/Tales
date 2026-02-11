@@ -1,0 +1,24 @@
+:: initwidget [widget]
+<<widget "initwid">>
+    <<set $characteristics to "">>
+    <<set $characteristics_end to "">>
+    <<set $characteristics_eternal to "">>
+    <<set $hp_1 to ""; $mp_1 to ""; $atk_1 to ""; $def_1 to ""; $spd_1 to ""; $luk_1 to ""; $mag_1 to "">>
+<</widget>>
+
+<<widget "initvar">>
+    <<set $race to "???">>
+    <<set $gender to "???">>
+    <<set $name to "???">>
+    <<set $age to "">>
+    <<set $call to "">> 
+    <<set $hp to 100>>
+    <<set $mp to 100>>
+    <<set $atk to 10>>
+    <<set $def to 10>>
+    <<set $spd to 5>>
+    <<set $luk to 5>>
+    <<set $mag to 10>>
+    <<set $talents to []>>
+    <<set $attributes to []>>
+<</widget>>

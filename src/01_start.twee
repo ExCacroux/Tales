@@ -1,6 +1,4 @@
 :: start
-
-
 <h2><<type 100ms>><p class="typescreen">故事于此开始</p><</type>></h2><h2><<type 100ms>><p class="typescreen">故事于此终结</p><</type>></h2><h1><<type 100ms>><p class="typescreen">The Tale for you</p><</type>></h1>
 <<script>>
     UIBar.hide().stow(true);
