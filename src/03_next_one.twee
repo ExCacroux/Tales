@@ -70,7 +70,24 @@
         <<replace "#attri">><<print $attributes.join(", ")>><</replace>>
         <<replace "#apoint">>$a_points<</replace>>
     <</if>>
-<</link>> 
+<</link>>
+<br>
+<<link "<span class='talent' data-desc='虚数属性\n 特性：数理，投影，几何'> 虚数 (4点)</span>">>
+    <<if $a_points >= 4 and not $attributes.includes("虚数")>>
+        <<set $a_points -= 4>>                 <!-- 扣点 -->
+        <<set $attributes.push("虚数")>>        <!-- 2. 加入数组 -->
+        <<replace "#attri">><<print $attributes.join(", ")>><</replace>>
+        <<replace "#apoint">>$a_points<</replace>>
+    <</if>>
+<</link>>
+<<link "<span class='talent' data-desc='夸特属性\n 特性：数理，投影，几何'> 夸特 (4点)</span>">>
+    <<if $a_points >= 4 and not $attributes.includes("夸特")>>
+        <<set $a_points -= 4>>                 <!-- 扣点 -->
+        <<set $attributes.push("夸特")>>        <!-- 2. 加入数组 -->
+        <<replace "#attri">><<print $attributes.join(", ")>><</replace>>
+        <<replace "#apoint">>$a_points<</replace>>
+    <</if>>
+<</link>>
 <br>
 原初属性：
 <br>

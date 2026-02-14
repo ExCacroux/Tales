@@ -6,3 +6,11 @@
         Dialog.open();
     <</script>>
 <</link>>
+
+<<link "设定">>
+    <<script>>
+        Dialog.setup("设定");
+        Dialog.wikiPassage('talesetting');
+        Dialog.open();
+    <</script>>
+<</link>>
